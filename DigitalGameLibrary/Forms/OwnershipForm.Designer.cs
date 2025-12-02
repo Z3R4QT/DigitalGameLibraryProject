@@ -28,12 +28,28 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.components = new System.ComponentModel.Container();
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Text = "OwnershipForm";
+            components = new System.ComponentModel.Container();
+            colorDialog1 = new ColorDialog();
+            kryptonCustomPaletteBase1 = new Krypton.Toolkit.KryptonCustomPaletteBase(components);
+            SuspendLayout();
+            // 
+            // kryptonCustomPaletteBase1
+            // 
+            kryptonCustomPaletteBase1.UseThemeFormChromeBorderWidth = Krypton.Toolkit.InheritBool.True;
+            // 
+            // OwnershipForm
+            // 
+            AutoScaleDimensions = new SizeF(7F, 15F);
+            AutoScaleMode = AutoScaleMode.Font;
+            ClientSize = new Size(800, 450);
+            Name = "OwnershipForm";
+            Text = "OwnershipForm";
+            ResumeLayout(false);
         }
 
         #endregion
+
+        private ColorDialog colorDialog1;
+        private Krypton.Toolkit.KryptonCustomPaletteBase kryptonCustomPaletteBase1;
     }
 }
