@@ -10,11 +10,16 @@ using System.Windows.Forms;
 
 namespace DigitalGameLibrary.Forms
 {
-    public partial class GameForm : Form
+    public partial class UsersControl1 : UserControl
     {
-        public GameForm()
+        public UsersControl1()
         {
             InitializeComponent();
+        }
+
+        private void UsersControl1_Load(object sender, EventArgs e)
+        {
+
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿namespace DigitalGameLibrary.Forms
 {
-    partial class OwnershipForm
+    partial class DashboardControl
     {
-        /// <summary>
+        /// <summary> 
         /// Required designer variable.
         /// </summary>
         private System.ComponentModel.IContainer components = null;
 
-        /// <summary>
+        /// <summary> 
         /// Clean up any resources being used.
         /// </summary>
         /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
@@ -20,36 +20,25 @@
             base.Dispose(disposing);
         }
 
-        #region Windows Form Designer generated code
+        #region Component Designer generated code
 
-        /// <summary>
-        /// Required method for Designer support - do not modify
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
         /// the contents of this method with the code editor.
         /// </summary>
         private void InitializeComponent()
         {
-            components = new System.ComponentModel.Container();
-            colorDialog1 = new ColorDialog();
-            kryptonCustomPaletteBase1 = new Krypton.Toolkit.KryptonCustomPaletteBase(components);
             SuspendLayout();
             // 
-            // kryptonCustomPaletteBase1
-            // 
-            kryptonCustomPaletteBase1.UseThemeFormChromeBorderWidth = Krypton.Toolkit.InheritBool.True;
-            // 
-            // OwnershipForm
+            // DashboardControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(800, 450);
-            Name = "OwnershipForm";
-            Text = "OwnershipForm";
+            Name = "DashboardControl";
+            Size = new Size(702, 346);
             ResumeLayout(false);
         }
 
         #endregion
-
-        private ColorDialog colorDialog1;
-        private Krypton.Toolkit.KryptonCustomPaletteBase kryptonCustomPaletteBase1;
     }
 }

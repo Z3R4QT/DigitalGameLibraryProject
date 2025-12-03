@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace DigitalGameLibrary.Forms
 {
-    public partial class UserForm : Form
+    public partial class DashboardControl : UserControl
     {
-        public UserForm()
+        public DashboardControl()
         {
             InitializeComponent();
         }

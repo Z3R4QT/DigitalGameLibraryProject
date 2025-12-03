@@ -10,9 +10,9 @@ using System.Windows.Forms;
 
 namespace DigitalGameLibrary.Forms
 {
-    public partial class OwnershipForm : Form
+    public partial class GameControl : UserControl
     {
-        public OwnershipForm()
+        public GameControl()
         {
             InitializeComponent();
         }
