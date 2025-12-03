@@ -189,6 +189,7 @@
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "MainForm";
+            StartPosition = FormStartPosition.CenterScreen;
             Text = "MainForm";
             Load += MainForm_Load;
             panel1.ResumeLayout(false);

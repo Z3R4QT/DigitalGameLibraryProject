@@ -9,7 +9,7 @@ namespace DigitalGameLibrary
         static void Main()
         {
             ApplicationConfiguration.Initialize();
-            Application.Run(new Forms.MainForm());
+            Application.Run(new Forms.SplashForm());
         }
     }
 }
