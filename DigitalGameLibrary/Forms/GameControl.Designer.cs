@@ -38,7 +38,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.RoyalBlue;
             Name = "GameControl";
-            Size = new Size(758, 442);
+            Size = new Size(758, 464);
             ResumeLayout(false);
         }
 

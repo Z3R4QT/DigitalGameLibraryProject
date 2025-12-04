@@ -51,10 +51,15 @@ namespace DigitalGameLibrary.Forms
                         this.Hide();
                         new LoginForm().Show();
 
-   
+
                     }
                 }
             }
+        }
+
+        private void ProgressBar1_Click(object sender, EventArgs e)
+        {
+
         }
     }
 }

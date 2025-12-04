@@ -36,7 +36,7 @@
             // ProgressBar1
             // 
             ProgressBar1.Dock = DockStyle.Bottom;
-            ProgressBar1.Location = new Point(0, 132);
+            ProgressBar1.Location = new Point(0, 0);
             ProgressBar1.Name = "ProgressBar1";
             ProgressBar1.Size = new Size(574, 50);
             ProgressBar1.StateCommon.Back.Color1 = Color.Green;
@@ -47,6 +47,7 @@
             ProgressBar1.TextBackdropColor = Color.Empty;
             ProgressBar1.TextShadowColor = Color.Empty;
             ProgressBar1.Values.Text = "Loading.....";
+            ProgressBar1.Click += ProgressBar1_Click;
             // 
             // timer1
             // 
@@ -59,8 +60,9 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaptionText;
-            ClientSize = new Size(574, 182);
+            ClientSize = new Size(574, 50);
             Controls.Add(ProgressBar1);
+            FormBorderStyle = FormBorderStyle.None;
             Name = "SplashForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "Loading";

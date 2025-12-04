@@ -161,7 +161,7 @@
             // 
             // panel2
             // 
-            panel2.BackColor = Color.DarkSlateBlue;
+            panel2.BackColor = Color.Blue;
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(187, 0);
             panel2.Name = "panel2";
@@ -183,7 +183,7 @@
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.Chocolate;
+            BackColor = Color.SteelBlue;
             ClientSize = new Size(800, 450);
             Controls.Add(panel3);
             Controls.Add(panel2);
