@@ -36,10 +36,6 @@ namespace DigitalGameLibrary.Forms
             LoadControl(new GameControl());
         }
 
-        private void bntUsers_Click(object sender, EventArgs e)
-        {
-            LoadControl(new UserControl());
-        }
 
         private void btnOwnerShip_Click(object sender, EventArgs e)
         {
@@ -53,7 +49,12 @@ namespace DigitalGameLibrary.Forms
 
         private void btnExit_Click(object sender, EventArgs e)
         {
-           Close();
+            Close();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }

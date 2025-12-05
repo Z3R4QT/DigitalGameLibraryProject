@@ -49,7 +49,7 @@ namespace DigitalGameLibrary.Forms
                         timer1.Stop();
 
                         this.Hide();
-                        new LoginForm().Show();
+                        new MainForm().Show();
 
 
                     }
