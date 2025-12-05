@@ -25,9 +25,9 @@ namespace DigitalGameLibrary.Forms
 
         private void LoadControl(UserControl uc)
         {
-            panel3.Controls.Clear();
+            panel6.Controls.Clear();
             uc.Dock = DockStyle.Fill;
-            panel3.Controls.Add(uc);
+            panel6.Controls.Add(uc);
             uc.BringToFront();
         }
 
@@ -52,9 +52,30 @@ namespace DigitalGameLibrary.Forms
             Close();
         }
 
+        private void btnHome_Click(object sender, EventArgs e)
+        {
+            foreach (Control ctrl in panel6.Controls)
+            {
+                ctrl.Visible = false;
+            }
+
+            // Show panel6 itself as Home
+            panel6.Visible = true;
+        }
+
+        private void panel6_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
         private void panel1_Paint(object sender, PaintEventArgs e)
         {
 
+        }
+
+        private void btnManageGames_Click(object sender, EventArgs e)
+        {
+            LoadControl(new ManageControl());
         }
     }
 }

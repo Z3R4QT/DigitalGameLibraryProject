@@ -29,19 +29,27 @@
         private void InitializeComponent()
         {
             panel1 = new Panel();
+            panel5 = new Panel();
+            btnHome = new MaterialSkin.Controls.MaterialButton();
             btnManageGames = new MaterialSkin.Controls.MaterialButton();
             btnAddGames = new MaterialSkin.Controls.MaterialButton();
             btnExit = new MaterialSkin.Controls.MaterialButton();
             btnDashboard = new MaterialSkin.Controls.MaterialButton();
             btnOwnerShip = new MaterialSkin.Controls.MaterialButton();
             panel2 = new Panel();
+            panel4 = new Panel();
             panel3 = new Panel();
+            panel6 = new Panel();
             panel1.SuspendLayout();
+            panel2.SuspendLayout();
+            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
             // 
             panel1.BackColor = Color.DarkSlateBlue;
+            panel1.Controls.Add(panel5);
+            panel1.Controls.Add(btnHome);
             panel1.Controls.Add(btnManageGames);
             panel1.Controls.Add(btnAddGames);
             panel1.Controls.Add(btnExit);
@@ -50,9 +58,37 @@
             panel1.Dock = DockStyle.Left;
             panel1.Location = new Point(0, 0);
             panel1.Name = "panel1";
-            panel1.Size = new Size(187, 450);
+            panel1.Size = new Size(187, 485);
             panel1.TabIndex = 0;
             panel1.Paint += panel1_Paint;
+            // 
+            // panel5
+            // 
+            panel5.Location = new Point(187, 63);
+            panel5.Name = "panel5";
+            panel5.Size = new Size(200, 100);
+            panel5.TabIndex = 3;
+            // 
+            // btnHome
+            // 
+            btnHome.AutoSize = false;
+            btnHome.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnHome.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnHome.Depth = 0;
+            btnHome.HighEmphasis = true;
+            btnHome.Icon = null;
+            btnHome.Location = new Point(0, 0);
+            btnHome.Margin = new Padding(4, 6, 4, 6);
+            btnHome.MouseState = MaterialSkin.MouseState.HOVER;
+            btnHome.Name = "btnHome";
+            btnHome.NoAccentTextColor = Color.Empty;
+            btnHome.Size = new Size(187, 64);
+            btnHome.TabIndex = 6;
+            btnHome.Text = "HOME";
+            btnHome.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnHome.UseAccentColor = false;
+            btnHome.UseVisualStyleBackColor = true;
+            btnHome.Click += btnHome_Click;
             // 
             // btnManageGames
             // 
@@ -62,7 +98,7 @@
             btnManageGames.Depth = 0;
             btnManageGames.HighEmphasis = true;
             btnManageGames.Icon = null;
-            btnManageGames.Location = new Point(0, 76);
+            btnManageGames.Location = new Point(0, 152);
             btnManageGames.Margin = new Padding(4, 6, 4, 6);
             btnManageGames.MouseState = MaterialSkin.MouseState.HOVER;
             btnManageGames.Name = "btnManageGames";
@@ -73,6 +109,7 @@
             btnManageGames.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             btnManageGames.UseAccentColor = false;
             btnManageGames.UseVisualStyleBackColor = true;
+            btnManageGames.Click += btnManageGames_Click;
             // 
             // btnAddGames
             // 
@@ -82,7 +119,7 @@
             btnAddGames.Depth = 0;
             btnAddGames.HighEmphasis = true;
             btnAddGames.Icon = null;
-            btnAddGames.Location = new Point(0, 0);
+            btnAddGames.Location = new Point(0, 76);
             btnAddGames.Margin = new Padding(4, 6, 4, 6);
             btnAddGames.MouseState = MaterialSkin.MouseState.HOVER;
             btnAddGames.Name = "btnAddGames";
@@ -104,7 +141,7 @@
             btnExit.Dock = DockStyle.Bottom;
             btnExit.HighEmphasis = true;
             btnExit.Icon = null;
-            btnExit.Location = new Point(0, 414);
+            btnExit.Location = new Point(0, 449);
             btnExit.Margin = new Padding(4, 6, 4, 6);
             btnExit.MouseState = MaterialSkin.MouseState.HOVER;
             btnExit.Name = "btnExit";
@@ -125,7 +162,7 @@
             btnDashboard.Depth = 0;
             btnDashboard.HighEmphasis = true;
             btnDashboard.Icon = null;
-            btnDashboard.Location = new Point(0, 228);
+            btnDashboard.Location = new Point(0, 304);
             btnDashboard.Margin = new Padding(4, 6, 4, 6);
             btnDashboard.MouseState = MaterialSkin.MouseState.HOVER;
             btnDashboard.Name = "btnDashboard";
@@ -146,7 +183,7 @@
             btnOwnerShip.Depth = 0;
             btnOwnerShip.HighEmphasis = true;
             btnOwnerShip.Icon = null;
-            btnOwnerShip.Location = new Point(0, 152);
+            btnOwnerShip.Location = new Point(0, 228);
             btnOwnerShip.Margin = new Padding(4, 6, 4, 6);
             btnOwnerShip.MouseState = MaterialSkin.MouseState.HOVER;
             btnOwnerShip.Name = "btnOwnerShip";
@@ -162,30 +199,47 @@
             // panel2
             // 
             panel2.BackColor = Color.Blue;
+            panel2.Controls.Add(panel4);
             panel2.Dock = DockStyle.Top;
             panel2.Location = new Point(187, 0);
             panel2.Name = "panel2";
-            panel2.Size = new Size(613, 64);
+            panel2.Size = new Size(777, 64);
             panel2.TabIndex = 1;
+            // 
+            // panel4
+            // 
+            panel4.BackColor = Color.Blue;
+            panel4.Controls.Add(panel3);
+            panel4.Dock = DockStyle.Top;
+            panel4.Location = new Point(0, 0);
+            panel4.Name = "panel4";
+            panel4.Size = new Size(777, 64);
+            panel4.TabIndex = 2;
             // 
             // panel3
             // 
-            panel3.AutoSize = true;
-            panel3.AutoSizeMode = AutoSizeMode.GrowAndShrink;
-            panel3.BackColor = Color.RoyalBlue;
-            panel3.Dock = DockStyle.Bottom;
-            panel3.Location = new Point(187, 450);
+            panel3.Location = new Point(3, 60);
             panel3.Name = "panel3";
-            panel3.Size = new Size(613, 0);
-            panel3.TabIndex = 2;
+            panel3.Size = new Size(200, 100);
+            panel3.TabIndex = 3;
+            // 
+            // panel6
+            // 
+            panel6.BackColor = Color.Aquamarine;
+            panel6.Dock = DockStyle.Fill;
+            panel6.Location = new Point(187, 64);
+            panel6.Name = "panel6";
+            panel6.Size = new Size(777, 421);
+            panel6.TabIndex = 2;
             // 
             // MainForm
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.SteelBlue;
-            ClientSize = new Size(800, 450);
-            Controls.Add(panel3);
+            AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            BackColor = Color.LightCyan;
+            ClientSize = new Size(964, 485);
+            Controls.Add(panel6);
             Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "MainForm";
@@ -193,8 +247,9 @@
             Text = "MainForm";
             Load += MainForm_Load;
             panel1.ResumeLayout(false);
+            panel2.ResumeLayout(false);
+            panel4.ResumeLayout(false);
             ResumeLayout(false);
-            PerformLayout();
         }
 
         #endregion
@@ -204,8 +259,12 @@
         private MaterialSkin.Controls.MaterialButton btnOwnerShip;
         private MaterialSkin.Controls.MaterialButton btnAddGames;
         private Panel panel2;
-        private Panel panel3;
         private MaterialSkin.Controls.MaterialButton btnExit;
         private MaterialSkin.Controls.MaterialButton btnManageGames;
+        private MaterialSkin.Controls.MaterialButton btnHome;
+        private Panel panel4;
+        private Panel panel3;
+        private Panel panel5;
+        private Panel panel6;
     }
 }
