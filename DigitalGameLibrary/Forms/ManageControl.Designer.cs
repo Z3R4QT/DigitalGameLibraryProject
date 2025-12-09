@@ -32,8 +32,10 @@
             btnEdit = new MaterialSkin.Controls.MaterialButton();
             btnDelete = new MaterialSkin.Controls.MaterialButton();
             btnRefresh = new MaterialSkin.Controls.MaterialButton();
-            txtSearch = new MaterialSkin.Controls.MaterialMaskedTextBox();
             sqliteCommand1 = new Microsoft.Data.Sqlite.SqliteCommand();
+            txtTitle = new MaterialSkin.Controls.MaterialTextBox2();
+            txtGenre = new MaterialSkin.Controls.MaterialTextBox2();
+            txtPlatform = new MaterialSkin.Controls.MaterialTextBox2();
             ((System.ComponentModel.ISupportInitialize)dgvGames).BeginInit();
             SuspendLayout();
             // 
@@ -50,7 +52,6 @@
             dgvGames.Name = "dgvGames";
             dgvGames.Size = new Size(695, 194);
             dgvGames.TabIndex = 0;
-
             // 
             // btnEdit
             // 
@@ -109,47 +110,6 @@
             btnRefresh.UseAccentColor = false;
             btnRefresh.UseVisualStyleBackColor = true;
             // 
-            // txtSearch
-            // 
-            txtSearch.AllowPromptAsInput = true;
-            txtSearch.AnimateReadOnly = false;
-            txtSearch.AsciiOnly = false;
-            txtSearch.BackgroundImageLayout = ImageLayout.None;
-            txtSearch.BeepOnError = false;
-            txtSearch.CutCopyMaskFormat = MaskFormat.IncludeLiterals;
-            txtSearch.Depth = 0;
-            txtSearch.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
-            txtSearch.HidePromptOnLeave = false;
-            txtSearch.HideSelection = true;
-            txtSearch.InsertKeyMode = InsertKeyMode.Default;
-            txtSearch.LeadingIcon = null;
-            txtSearch.Location = new Point(13, 200);
-            txtSearch.Mask = "";
-            txtSearch.MaxLength = 32767;
-            txtSearch.MouseState = MaterialSkin.MouseState.OUT;
-            txtSearch.Name = "txtSearch";
-            txtSearch.PasswordChar = '\0';
-            txtSearch.PrefixSuffixText = null;
-            txtSearch.PromptChar = '_';
-            txtSearch.ReadOnly = false;
-            txtSearch.RejectInputOnFirstFailure = false;
-            txtSearch.ResetOnPrompt = true;
-            txtSearch.ResetOnSpace = true;
-            txtSearch.RightToLeft = RightToLeft.No;
-            txtSearch.SelectedText = "";
-            txtSearch.SelectionLength = 0;
-            txtSearch.SelectionStart = 0;
-            txtSearch.ShortcutsEnabled = true;
-            txtSearch.Size = new Size(250, 48);
-            txtSearch.SkipLiterals = true;
-            txtSearch.TabIndex = 4;
-            txtSearch.TabStop = false;
-            txtSearch.TextAlign = HorizontalAlignment.Left;
-            txtSearch.TextMaskFormat = MaskFormat.IncludeLiterals;
-            txtSearch.TrailingIcon = null;
-            txtSearch.UseSystemPasswordChar = false;
-            txtSearch.ValidatingType = null;
-            // 
             // sqliteCommand1
             // 
             sqliteCommand1.CommandTimeout = 30;
@@ -157,17 +117,107 @@
             sqliteCommand1.Transaction = null;
             sqliteCommand1.UpdatedRowSource = System.Data.UpdateRowSource.None;
             // 
+            // txtTitle
+            // 
+            txtTitle.AnimateReadOnly = false;
+            txtTitle.BackgroundImageLayout = ImageLayout.None;
+            txtTitle.CharacterCasing = CharacterCasing.Normal;
+            txtTitle.Depth = 0;
+            txtTitle.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtTitle.HideSelection = true;
+            txtTitle.LeadingIcon = null;
+            txtTitle.Location = new Point(339, 205);
+            txtTitle.MaxLength = 32767;
+            txtTitle.MouseState = MaterialSkin.MouseState.OUT;
+            txtTitle.Name = "txtTitle";
+            txtTitle.PasswordChar = '\0';
+            txtTitle.PrefixSuffixText = null;
+            txtTitle.ReadOnly = false;
+            txtTitle.RightToLeft = RightToLeft.No;
+            txtTitle.SelectedText = "";
+            txtTitle.SelectionLength = 0;
+            txtTitle.SelectionStart = 0;
+            txtTitle.ShortcutsEnabled = true;
+            txtTitle.Size = new Size(250, 48);
+            txtTitle.TabIndex = 4;
+            txtTitle.TabStop = false;
+            txtTitle.Text = "Title";
+            txtTitle.TextAlign = HorizontalAlignment.Left;
+            txtTitle.TrailingIcon = null;
+            txtTitle.UseSystemPasswordChar = false;
+            // 
+            // txtGenre
+            // 
+            txtGenre.AnimateReadOnly = false;
+            txtGenre.BackgroundImageLayout = ImageLayout.None;
+            txtGenre.CharacterCasing = CharacterCasing.Normal;
+            txtGenre.Depth = 0;
+            txtGenre.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtGenre.HideSelection = true;
+            txtGenre.LeadingIcon = null;
+            txtGenre.Location = new Point(339, 254);
+            txtGenre.MaxLength = 32767;
+            txtGenre.MouseState = MaterialSkin.MouseState.OUT;
+            txtGenre.Name = "txtGenre";
+            txtGenre.PasswordChar = '\0';
+            txtGenre.PrefixSuffixText = null;
+            txtGenre.ReadOnly = false;
+            txtGenre.RightToLeft = RightToLeft.No;
+            txtGenre.SelectedText = "";
+            txtGenre.SelectionLength = 0;
+            txtGenre.SelectionStart = 0;
+            txtGenre.ShortcutsEnabled = true;
+            txtGenre.Size = new Size(250, 48);
+            txtGenre.TabIndex = 5;
+            txtGenre.TabStop = false;
+            txtGenre.Text = "Genre";
+            txtGenre.TextAlign = HorizontalAlignment.Left;
+            txtGenre.TrailingIcon = null;
+            txtGenre.UseSystemPasswordChar = false;
+
+            // 
+            // txtPlatform
+            // 
+            txtPlatform.AnimateReadOnly = false;
+            txtPlatform.BackgroundImageLayout = ImageLayout.None;
+            txtPlatform.CharacterCasing = CharacterCasing.Normal;
+            txtPlatform.Depth = 0;
+            txtPlatform.Font = new Font("Microsoft Sans Serif", 16F, FontStyle.Regular, GraphicsUnit.Pixel);
+            txtPlatform.HideSelection = true;
+            txtPlatform.LeadingIcon = null;
+            txtPlatform.Location = new Point(339, 308);
+            txtPlatform.MaxLength = 32767;
+            txtPlatform.MouseState = MaterialSkin.MouseState.OUT;
+            txtPlatform.Name = "txtPlatform";
+            txtPlatform.PasswordChar = '\0';
+            txtPlatform.PrefixSuffixText = null;
+            txtPlatform.ReadOnly = false;
+            txtPlatform.RightToLeft = RightToLeft.No;
+            txtPlatform.SelectedText = "";
+            txtPlatform.SelectionLength = 0;
+            txtPlatform.SelectionStart = 0;
+            txtPlatform.ShortcutsEnabled = true;
+            txtPlatform.Size = new Size(250, 48);
+            txtPlatform.TabIndex = 6;
+            txtPlatform.TabStop = false;
+            txtPlatform.Text = "platform";
+            txtPlatform.TextAlign = HorizontalAlignment.Left;
+            txtPlatform.TrailingIcon = null;
+            txtPlatform.UseSystemPasswordChar = false;
+            // 
             // ManageControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            Controls.Add(txtSearch);
+            Controls.Add(txtPlatform);
+            Controls.Add(txtGenre);
+            Controls.Add(txtTitle);
             Controls.Add(btnRefresh);
             Controls.Add(btnDelete);
             Controls.Add(btnEdit);
             Controls.Add(dgvGames);
             Name = "ManageControl";
-            Size = new Size(695, 351);
+            Size = new Size(695, 384);
             Load += ManageControl_Load;
             ((System.ComponentModel.ISupportInitialize)dgvGames).EndInit();
             ResumeLayout(false);
@@ -180,7 +230,9 @@
         private MaterialSkin.Controls.MaterialButton btnEdit;
         private MaterialSkin.Controls.MaterialButton btnDelete;
         private MaterialSkin.Controls.MaterialButton btnRefresh;
-        private MaterialSkin.Controls.MaterialMaskedTextBox txtSearch;
         private Microsoft.Data.Sqlite.SqliteCommand sqliteCommand1;
+        private MaterialSkin.Controls.MaterialTextBox2 txtTitle;
+        private MaterialSkin.Controls.MaterialTextBox2 txtGenre;
+        private MaterialSkin.Controls.MaterialTextBox2 txtPlatform;
     }
 }

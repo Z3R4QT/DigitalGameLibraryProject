@@ -31,7 +31,7 @@
             lblTotalGames = new MaterialSkin.Controls.MaterialLabel();
             lblTotalUsers = new MaterialSkin.Controls.MaterialLabel();
             lblPopularGenre = new MaterialSkin.Controls.MaterialLabel();
-            lstRecentGames = new MaterialSkin.Controls.MaterialLabel();
+            btnRefresh = new MaterialSkin.Controls.MaterialButton();
             SuspendLayout();
             // 
             // lblTotalGames
@@ -43,7 +43,7 @@
             lblTotalGames.Name = "lblTotalGames";
             lblTotalGames.Size = new Size(158, 98);
             lblTotalGames.TabIndex = 0;
-            lblTotalGames.Text = "materialLabel1";
+            lblTotalGames.Text = "TOTAL GAMES:";
             // 
             // lblTotalUsers
             // 
@@ -54,7 +54,7 @@
             lblTotalUsers.Name = "lblTotalUsers";
             lblTotalUsers.Size = new Size(158, 98);
             lblTotalUsers.TabIndex = 1;
-            lblTotalUsers.Text = "materialLabel2";
+            lblTotalUsers.Text = "TOTAL USERS:";
             // 
             // lblPopularGenre
             // 
@@ -65,25 +65,33 @@
             lblPopularGenre.Name = "lblPopularGenre";
             lblPopularGenre.Size = new Size(158, 98);
             lblPopularGenre.TabIndex = 2;
-            lblPopularGenre.Text = "materialLabel3";
+            lblPopularGenre.Text = "Popular Genre:";
             // 
-            // lstRecentGames
+            // btnRefresh
             // 
-            lstRecentGames.Depth = 0;
-            lstRecentGames.Font = new Font("Roboto", 14F, FontStyle.Regular, GraphicsUnit.Pixel);
-            lstRecentGames.Location = new Point(19, 121);
-            lstRecentGames.MouseState = MaterialSkin.MouseState.HOVER;
-            lstRecentGames.Name = "lstRecentGames";
-            lstRecentGames.Size = new Size(158, 98);
-            lstRecentGames.TabIndex = 3;
-            lstRecentGames.Text = "materialLabel4";
+            btnRefresh.AutoSizeMode = AutoSizeMode.GrowAndShrink;
+            btnRefresh.Density = MaterialSkin.Controls.MaterialButton.MaterialButtonDensity.Default;
+            btnRefresh.Depth = 0;
+            btnRefresh.HighEmphasis = true;
+            btnRefresh.Icon = null;
+            btnRefresh.Location = new Point(19, 221);
+            btnRefresh.Margin = new Padding(4, 6, 4, 6);
+            btnRefresh.MouseState = MaterialSkin.MouseState.HOVER;
+            btnRefresh.Name = "btnRefresh";
+            btnRefresh.NoAccentTextColor = Color.Empty;
+            btnRefresh.Size = new Size(84, 36);
+            btnRefresh.TabIndex = 3;
+            btnRefresh.Text = "refresh";
+            btnRefresh.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
+            btnRefresh.UseAccentColor = false;
+            btnRefresh.UseVisualStyleBackColor = true;
             // 
             // DashboardControl
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.ActiveCaption;
-            Controls.Add(lstRecentGames);
+            Controls.Add(btnRefresh);
             Controls.Add(lblPopularGenre);
             Controls.Add(lblTotalUsers);
             Controls.Add(lblTotalGames);
@@ -91,6 +99,7 @@
             Size = new Size(702, 346);
             Load += DashboardControl_Load;
             ResumeLayout(false);
+            PerformLayout();
         }
 
         #endregion
@@ -98,6 +107,6 @@
         private MaterialSkin.Controls.MaterialLabel lblTotalGames;
         private MaterialSkin.Controls.MaterialLabel lblTotalUsers;
         private MaterialSkin.Controls.MaterialLabel lblPopularGenre;
-        private MaterialSkin.Controls.MaterialLabel lstRecentGames;
+        private MaterialSkin.Controls.MaterialButton btnRefresh;
     }
 }

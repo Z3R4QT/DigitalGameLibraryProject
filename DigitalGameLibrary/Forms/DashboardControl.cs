@@ -3,48 +3,53 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using DigitalGameLibrary.Models;
+using DigitalGameLibrary.Repositories;
 
 namespace DigitalGameLibrary.Forms
 {
     public partial class DashboardControl : UserControl
     {
-        // Assuming you have access to your lists of games and users
-        public List<Game> games = new List<Game>();
-        public List<User> users = new List<User>();
+        private GameRepository gameRepo = new GameRepository();
+        private OwnershipRepository ownershipRepo = new OwnershipRepository();
+
+        private List<Game> games = new List<Game>();
+        private Dictionary<string, List<string>> ownership = new Dictionary<string, List<string>>();
 
         public DashboardControl()
         {
             InitializeComponent();
+            this.Load += DashboardControl_Load;
         }
 
         private void DashboardControl_Load(object sender, EventArgs e)
         {
-            LoadDashboard(); // Just call the method here
+            LoadData();
+            DisplayStats();
         }
 
-        // This method should be outside of DashboardControl_Load
-        private void LoadDashboard()
+        private void LoadData()
         {
-            // Total games and users
-            lblTotalGames.Text = games.Count.ToString();
-            lblTotalUsers.Text = users.Count.ToString();
+            games = gameRepo.GetAllGames() ?? new List<Game>();
+            ownership = ownershipRepo.LoadOwnership() ?? new Dictionary<string, List<string>>();
+        }
 
-            // Most popular genre
-            var mostPopularGenre = games
+        private void DisplayStats()
+        {
+            lblTotalGames.Text = $"TOTAL GAMES: {games.Count}";
+            lblTotalUsers.Text = $"TOTAL USERS: {ownership.Keys.Count}";
+
+            string popularGenre = games
                 .GroupBy(g => g.Genre)
                 .OrderByDescending(g => g.Count())
                 .FirstOrDefault()?.Key ?? "None";
 
-            lblPopularGenre.Text = mostPopularGenre;
+            lblPopularGenre.Text = $"MOST POPULAR GENRE: {popularGenre}";
+        }
 
-            // Recent games (show top 5)
-            var recentGames = games
-                .OrderByDescending(g => g.ReleaseDate)
-                .Take(5)
-                .ToList();
-
-            // Set the Label text with line breaks
-            lstRecentGames.Text = string.Join(Environment.NewLine, recentGames.Select(g => g.Title));
+        private void btnRefresh_Click(object sender, EventArgs e)
+        {
+            LoadData();
+            DisplayStats();
         }
     }
 }

@@ -36,13 +36,8 @@
             btnExit = new MaterialSkin.Controls.MaterialButton();
             btnDashboard = new MaterialSkin.Controls.MaterialButton();
             btnOwnerShip = new MaterialSkin.Controls.MaterialButton();
-            panel2 = new Panel();
-            panel4 = new Panel();
-            panel3 = new Panel();
             panel6 = new Panel();
             panel1.SuspendLayout();
-            panel2.SuspendLayout();
-            panel4.SuspendLayout();
             SuspendLayout();
             // 
             // panel1
@@ -196,40 +191,13 @@
             btnOwnerShip.UseVisualStyleBackColor = true;
             btnOwnerShip.Click += btnOwnerShip_Click;
             // 
-            // panel2
-            // 
-            panel2.BackColor = Color.Blue;
-            panel2.Controls.Add(panel4);
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(187, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(777, 64);
-            panel2.TabIndex = 1;
-            // 
-            // panel4
-            // 
-            panel4.BackColor = Color.Blue;
-            panel4.Controls.Add(panel3);
-            panel4.Dock = DockStyle.Top;
-            panel4.Location = new Point(0, 0);
-            panel4.Name = "panel4";
-            panel4.Size = new Size(777, 64);
-            panel4.TabIndex = 2;
-            // 
-            // panel3
-            // 
-            panel3.Location = new Point(3, 60);
-            panel3.Name = "panel3";
-            panel3.Size = new Size(200, 100);
-            panel3.TabIndex = 3;
-            // 
             // panel6
             // 
             panel6.BackColor = Color.Aquamarine;
             panel6.Dock = DockStyle.Fill;
-            panel6.Location = new Point(187, 64);
+            panel6.Location = new Point(187, 0);
             panel6.Name = "panel6";
-            panel6.Size = new Size(777, 421);
+            panel6.Size = new Size(777, 485);
             panel6.TabIndex = 2;
             // 
             // MainForm
@@ -240,15 +208,12 @@
             BackColor = Color.LightCyan;
             ClientSize = new Size(964, 485);
             Controls.Add(panel6);
-            Controls.Add(panel2);
             Controls.Add(panel1);
             Name = "MainForm";
             StartPosition = FormStartPosition.CenterScreen;
             Text = "MainForm";
             Load += MainForm_Load;
             panel1.ResumeLayout(false);
-            panel2.ResumeLayout(false);
-            panel4.ResumeLayout(false);
             ResumeLayout(false);
         }
 
@@ -258,12 +223,9 @@
         private MaterialSkin.Controls.MaterialButton btnDashboard;
         private MaterialSkin.Controls.MaterialButton btnOwnerShip;
         private MaterialSkin.Controls.MaterialButton btnAddGames;
-        private Panel panel2;
         private MaterialSkin.Controls.MaterialButton btnExit;
         private MaterialSkin.Controls.MaterialButton btnManageGames;
         private MaterialSkin.Controls.MaterialButton btnHome;
-        private Panel panel4;
-        private Panel panel3;
         private Panel panel5;
         private Panel panel6;
     }

@@ -77,5 +77,10 @@ namespace DigitalGameLibrary.Forms
         {
             LoadControl(new ManageControl());
         }
+
+        private void panel2_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
     }
 }

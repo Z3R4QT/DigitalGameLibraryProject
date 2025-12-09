@@ -33,7 +33,6 @@
             kryptonContextMenu3 = new Krypton.Toolkit.KryptonContextMenu();
             cmbGenre = new MaterialSkin.Controls.MaterialComboBox();
             cmbPlatform = new MaterialSkin.Controls.MaterialComboBox();
-            numYear = new Krypton.Toolkit.KryptonNumericUpDown();
             btnAdd = new MaterialSkin.Controls.MaterialButton();
             cmbTitle = new ComboBox();
             SuspendLayout();
@@ -52,7 +51,7 @@
             cmbGenre.FormattingEnabled = true;
             cmbGenre.IntegralHeight = false;
             cmbGenre.ItemHeight = 43;
-            cmbGenre.Location = new Point(323, 98);
+            cmbGenre.Location = new Point(348, 104);
             cmbGenre.MaxDropDownItems = 4;
             cmbGenre.MouseState = MaterialSkin.MouseState.OUT;
             cmbGenre.Name = "cmbGenre";
@@ -74,25 +73,13 @@
             cmbPlatform.FormattingEnabled = true;
             cmbPlatform.IntegralHeight = false;
             cmbPlatform.ItemHeight = 43;
-            cmbPlatform.Location = new Point(520, 98);
+            cmbPlatform.Location = new Point(348, 40);
             cmbPlatform.MaxDropDownItems = 4;
             cmbPlatform.MouseState = MaterialSkin.MouseState.OUT;
             cmbPlatform.Name = "cmbPlatform";
             cmbPlatform.Size = new Size(200, 49);
             cmbPlatform.StartIndex = 0;
             cmbPlatform.TabIndex = 2;
-            // 
-            // numYear
-            // 
-            numYear.Anchor = AnchorStyles.Left | AnchorStyles.Right;
-            numYear.Increment = new decimal(new int[] { 1, 0, 0, 0 });
-            numYear.Location = new Point(323, 166);
-            numYear.Maximum = new decimal(new int[] { 100, 0, 0, 0 });
-            numYear.Minimum = new decimal(new int[] { 0, 0, 0, 0 });
-            numYear.Name = "numYear";
-            numYear.Size = new Size(144, 22);
-            numYear.TabIndex = 3;
-            numYear.Value = new decimal(new int[] { 0, 0, 0, 0 });
             // 
             // btnAdd
             // 
@@ -101,7 +88,7 @@
             btnAdd.Depth = 0;
             btnAdd.HighEmphasis = true;
             btnAdd.Icon = null;
-            btnAdd.Location = new Point(323, 213);
+            btnAdd.Location = new Point(33, 104);
             btnAdd.Margin = new Padding(4, 6, 4, 6);
             btnAdd.MouseState = MaterialSkin.MouseState.HOVER;
             btnAdd.Name = "btnAdd";
@@ -112,13 +99,12 @@
             btnAdd.Type = MaterialSkin.Controls.MaterialButton.MaterialButtonType.Contained;
             btnAdd.UseAccentColor = false;
             btnAdd.UseVisualStyleBackColor = true;
-            btnAdd.Click += btnAdd_Click;
             // 
             // cmbTitle
             // 
             cmbTitle.Font = new Font("Segoe UI", 15.75F, FontStyle.Regular, GraphicsUnit.Point, 0);
             cmbTitle.FormattingEnabled = true;
-            cmbTitle.Location = new Point(33, 98);
+            cmbTitle.Location = new Point(33, 40);
             cmbTitle.Name = "cmbTitle";
             cmbTitle.Size = new Size(259, 38);
             cmbTitle.Sorted = true;
@@ -131,7 +117,6 @@
             BackColor = SystemColors.ActiveBorder;
             Controls.Add(cmbTitle);
             Controls.Add(btnAdd);
-            Controls.Add(numYear);
             Controls.Add(cmbPlatform);
             Controls.Add(cmbGenre);
             Name = "GameControl";
@@ -148,7 +133,6 @@
         private Krypton.Toolkit.KryptonContextMenu kryptonContextMenu3;
         private MaterialSkin.Controls.MaterialComboBox cmbGenre;
         private MaterialSkin.Controls.MaterialComboBox cmbPlatform;
-        private Krypton.Toolkit.KryptonNumericUpDown numYear;
         private MaterialSkin.Controls.MaterialButton btnAdd;
         private ComboBox cmbTitle;
     }

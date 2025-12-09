@@ -4,14 +4,19 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Windows.Forms;
+using System.Collections.Generic;
 
 namespace DigitalGameLibrary.Forms
 {
     public partial class ManageControl : UserControl
     {
         private GameRepository repo = new GameRepository();
+        private BindingList<Game> gamesBindingList;
         private BindingSource bindingSource = new BindingSource();
-        private const int MaxVisibleGames = 3;
+
+        private Game selectedGame; // currently selected game
+        private HashSet<Game> gamesToDelete = new HashSet<Game>(); // track games marked for deletion
+        private Dictionary<string, bool> sortDirections = new Dictionary<string, bool>(); // track sort direction per column
 
         public ManageControl()
         {
@@ -21,160 +26,152 @@ namespace DigitalGameLibrary.Forms
 
         private void ManageControl_Load(object sender, EventArgs e)
         {
+            // Configure DataGridView
             dgvGames.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
-            // Allow inline editing in the grid
-            dgvGames.ReadOnly = false;
-            // Allow deleting rows from the grid (will remove from repository when using the Delete button)
-            dgvGames.AllowUserToDeleteRows = true;
-            dgvGames.AutoGenerateColumns = true;
+            dgvGames.ReadOnly = true;
             dgvGames.AllowUserToAddRows = false;
+            dgvGames.AllowUserToDeleteRows = false;
+            dgvGames.AutoGenerateColumns = true;
 
-            // Bind shared list to BindingSource
-            bindingSource.DataSource = repo.GetAllGames();
+            // Load games from file
+            var games = repo.GetAllGames() ?? new List<Game>();
+            gamesBindingList = new BindingList<Game>(games);
+            bindingSource.DataSource = gamesBindingList;
             dgvGames.DataSource = bindingSource;
 
-            // Hide internal flag from the user-facing grid after binding
-            dgvGames.DataBindingComplete -= DgvGames_DataBindingComplete;
-            dgvGames.DataBindingComplete += DgvGames_DataBindingComplete;
+            // Hide ReleaseDate column if exists
+            if (dgvGames.Columns.Contains("ReleaseDate"))
+                dgvGames.Columns["ReleaseDate"].Visible = false;
 
-            // Ensure grid shows only limited number of rows and updates when repo changes
-            var list = repo.GetAllGames();
-            // Guard against duplicate subscriptions if control is recreated
-            list.ListChanged -= Games_ListChanged;
-            list.ListChanged += Games_ListChanged;
-
-            // Apply initial filter/limit
-            ApplyFilter();
-            // Wire up control events (designer didn't generate event hookups)
-            btnDelete.Click += btnDelete_Click;
-            btnEdit.Click += btnEdit_Click;
-            btnRefresh.Click += btnRefresh_Click;
-            txtSearch.TextChanged += txtSearch_TextChanged;
-        }
-
-        private void DgvGames_DataBindingComplete(object? sender, DataGridViewBindingCompleteEventArgs e)
-        {
-            try
+            // Set sort mode for columns and initialize sort directions
+            foreach (DataGridViewColumn col in dgvGames.Columns)
             {
-                if (dgvGames.Columns.Contains("VisibleInList"))
-                    dgvGames.Columns["VisibleInList"].Visible = false;
+                col.SortMode = DataGridViewColumnSortMode.Programmatic;
+                sortDirections[col.DataPropertyName] = true; // default ascending
             }
-            catch { }
+
+            dgvGames.ClearSelection();
+
+            // Wire buttons
+            btnEdit.Click += BtnEdit_Click;
+            btnDelete.Click += BtnDelete_Click;
+            btnRefresh.Click += BtnRefresh_Click;
+
+            dgvGames.CellClick += DgvGames_CellClick;
+            dgvGames.ColumnHeaderMouseClick += DgvGames_ColumnHeaderMouseClick;
         }
 
-        private void btnDelete_Click(object sender, EventArgs e)
+        // Handle header click to sort
+        private void DgvGames_ColumnHeaderMouseClick(object sender, DataGridViewCellMouseEventArgs e)
         {
-            if (dgvGames.CurrentRow == null) return;
+            string columnName = dgvGames.Columns[e.ColumnIndex].DataPropertyName;
+            SortByColumn(columnName);
+        }
 
-            var game = dgvGames.CurrentRow.DataBoundItem as Game;
-            if (game != null)
+        private void DgvGames_CellClick(object sender, DataGridViewCellEventArgs e)
+        {
+            if (e.RowIndex < 0) return;
+
+            selectedGame = dgvGames.Rows[e.RowIndex].DataBoundItem as Game;
+            if (selectedGame != null)
             {
-                // Mark as not visible anywhere (defensive) and remove via repository API
-                game.VisibleInList = false;
+                txtTitle.Text = selectedGame.Title;
+                txtGenre.Text = selectedGame.Genre;
+                txtPlatform.Text = selectedGame.Platform;
+
+                // Highlight deleted games visually
+                dgvGames.Rows[e.RowIndex].DefaultCellStyle.BackColor =
+                    gamesToDelete.Contains(selectedGame) ? System.Drawing.Color.LightCoral : System.Drawing.Color.White;
+            }
+        }
+
+        private void BtnEdit_Click(object sender, EventArgs e)
+        {
+            if (selectedGame == null)
+            {
+                MessageBox.Show("Please select a game to edit.");
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(txtTitle.Text) ||
+                string.IsNullOrWhiteSpace(txtGenre.Text) ||
+                string.IsNullOrWhiteSpace(txtPlatform.Text))
+            {
+                MessageBox.Show("Please fill all fields.");
+                return;
+            }
+
+            selectedGame.Title = txtTitle.Text;
+            selectedGame.Genre = txtGenre.Text;
+            selectedGame.Platform = txtPlatform.Text;
+
+            // Save changes to file
+            repo.UpdateGame(selectedGame);
+            bindingSource.ResetBindings(false);
+
+            MessageBox.Show("Game updated successfully!");
+        }
+
+        private void BtnDelete_Click(object sender, EventArgs e)
+        {
+            if (selectedGame == null)
+            {
+                MessageBox.Show("Please select a game to delete.");
+                return;
+            }
+
+            if (!gamesToDelete.Contains(selectedGame))
+            {
+                gamesToDelete.Add(selectedGame);
+
+                // Highlight row in red
+                var rowIndex = dgvGames.Rows.Cast<DataGridViewRow>()
+                    .First(r => r.DataBoundItem == selectedGame).Index;
+                dgvGames.Rows[rowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.LightCoral;
+
+                MessageBox.Show($"Game '{selectedGame.Title}' marked for deletion. Press Refresh to delete.");
+            }
+        }
+
+        private void BtnRefresh_Click(object sender, EventArgs e)
+        {
+            foreach (var game in gamesToDelete)
+            {
                 repo.RemoveGame(game);
-                // Re-apply filter so the grid reflects the current search state
-                ApplyFilter();
-                MessageBox.Show("Game deleted!");
-            }
-        }
-
-        private void btnEdit_Click(object sender, EventArgs e)
-        {
-            if (dgvGames.CurrentRow == null) return;
-
-            var game = dgvGames.CurrentRow.DataBoundItem as Game;
-            if (game != null)
-            {
-                string newTitle = Microsoft.VisualBasic.Interaction.InputBox(
-                    "Edit Game Title:", "Edit Game", game.Title);
-
-                if (!string.IsNullOrWhiteSpace(newTitle))
-                {
-                    game.Title = newTitle;
-                    // Re-apply filter so the grid reflects the current search state
-                    ApplyFilter();
-                    MessageBox.Show("Game updated!");
-                }
-            }
-        }
-
-        private void txtSearch_TextChanged(object sender, EventArgs e)
-        {
-            // Use ApplyFilter to keep filtering logic in one place
-            ApplyFilter();
-            dgvGames.Refresh();
-        }
-
-        private void btnRefresh_Click(object sender, EventArgs e)
-        {
-            txtSearch.Clear();
-            ApplyFilter();
-            dgvGames.Refresh();
-        }
-
-        private void ApplyFilter()
-        {
-            string query = txtSearch.Text?.Trim().ToLower();
-
-            // Always keep the binding source bound to the repository's shared list so
-            // edits and deletions affect the real data.
-            bindingSource.DataSource = repo.GetAllGames();
-            // Update visibility safely. Changing row visibility can cause
-            // InvalidOperationException if the grid is processing other updates
-            // or the current cell becomes invalid. Suspend layout and clear
-            // the current cell during updates, and catch exceptions per-row.
-            dgvGames.SuspendLayout();
-            var previousCurrentCell = dgvGames.CurrentCell;
-            try
-            {
-                dgvGames.ClearSelection();
-
-                int shown = 0;
-                foreach (DataGridViewRow row in dgvGames.Rows)
-                {
-                    var game = row.DataBoundItem as Game;
-                    if (game == null)
-                    {
-                        try { row.Visible = false; } catch { }
-                        continue;
-                    }
-
-                    bool matches = string.IsNullOrEmpty(query) || (!string.IsNullOrEmpty(game.Title) && game.Title.ToLower().Contains(query));
-                    bool makeVisible = matches && shown < MaxVisibleGames;
-                    try
-                    {
-                        row.Visible = makeVisible;
-                    }
-                    catch (InvalidOperationException)
-                    {
-                        // Ignore and continue; row visibility couldn't be changed right now.
-                    }
-
-                    if (makeVisible) shown++;
-                }
-            }
-            finally
-            {
-                // Restore previous current cell if still valid
-                try
-                {
-                    if (previousCurrentCell != null && previousCurrentCell.DataGridView != null)
-                        dgvGames.CurrentCell = previousCurrentCell;
-                }
-                catch { }
-
-                dgvGames.ResumeLayout();
+                gamesBindingList.Remove(game);
             }
 
+            gamesToDelete.Clear();
+            bindingSource.ResetBindings(false);
+            dgvGames.ClearSelection();
+
+            MessageBox.Show("Marked games deleted successfully!");
+        }
+
+        public void AddGameToGrid(Game game)
+        {
+            if (game == null) return;
+            gamesBindingList.Add(game);
+            repo.AddGame(game); // save to file
             bindingSource.ResetBindings(false);
         }
 
-        private void Games_ListChanged(object? sender, ListChangedEventArgs e)
+        // Generic sort method
+        private void SortByColumn(string columnName)
         {
-            // Re-apply filter/limit on list changes (add/remove/edit)
-            if (IsHandleCreated)
-                BeginInvoke(new Action(ApplyFilter));
-        }
+            if (!sortDirections.ContainsKey(columnName)) return;
 
+            bool ascending = sortDirections[columnName];
+
+            var sortedList = ascending
+                ? gamesBindingList.OrderBy(g => g.GetType().GetProperty(columnName).GetValue(g)).ToList()
+                : gamesBindingList.OrderByDescending(g => g.GetType().GetProperty(columnName).GetValue(g)).ToList();
+
+            gamesBindingList = new BindingList<Game>(sortedList);
+            bindingSource.DataSource = gamesBindingList;
+            dgvGames.DataSource = bindingSource;
+
+            sortDirections[columnName] = !ascending; // toggle for next click
+        }
     }
 }
