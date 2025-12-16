@@ -10,10 +10,10 @@ namespace DigitalGameLibrary.Forms
     {
         private GameRepository repo = new GameRepository();
 
-        // Event to notify ManageControl when a game is added
+
         public event EventHandler<Game> GameAdded;
 
-        private bool isUpdatingCombo = false; // prevent recursion
+        private bool isUpdatingCombo = false; 
 
         public GameControl()
         {
@@ -23,7 +23,7 @@ namespace DigitalGameLibrary.Forms
 
         private void GameControl_Load(object sender, EventArgs e)
         {
-            // Populate Genre ComboBox
+      
             cmbGenre.Items.Clear();
             cmbGenre.Items.AddRange(new string[]
             {
@@ -32,7 +32,7 @@ namespace DigitalGameLibrary.Forms
             });
             cmbGenre.SelectedIndex = -1;
 
-            // Populate Platform ComboBox
+        
             cmbPlatform.Items.Clear();
             cmbPlatform.Items.AddRange(new string[]
             {
@@ -40,19 +40,19 @@ namespace DigitalGameLibrary.Forms
             });
             cmbPlatform.SelectedIndex = -1;
 
-            // Make Title ComboBox editable but remove inline autocomplete
-            cmbTitle.DropDownStyle = ComboBoxStyle.DropDown; // editable
-            cmbTitle.AutoCompleteMode = AutoCompleteMode.None; // disable inline autocomplete
+     
+            cmbTitle.DropDownStyle = ComboBoxStyle.DropDown; 
+            cmbTitle.AutoCompleteMode = AutoCompleteMode.None; 
             cmbTitle.AutoCompleteSource = AutoCompleteSource.None;
 
             LoadGameTitles();
 
-            // Wire events
+
             cmbTitle.SelectedIndexChanged += cmbTitle_SelectedIndexChanged;
             btnAdd.Click += btnAdd_Click;
         }
 
-        // Load titles into ComboBox dropdown only
+
         private void LoadGameTitles()
         {
             var titles = repo.GetAllGames()
@@ -111,14 +111,13 @@ namespace DigitalGameLibrary.Forms
 
             repo.AddGame(game);
 
-            // Notify ManageControl
+
             GameAdded?.Invoke(this, game);
 
             LoadGameTitles();
 
             MessageBox.Show("Game added successfully!");
 
-            // Clear inputs
             cmbTitle.Text = "";
             cmbGenre.SelectedIndex = -1;
             cmbPlatform.SelectedIndex = -1;
