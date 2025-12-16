@@ -10,7 +10,6 @@ namespace DigitalGameLibrary.Repositories
     {
         private string filePath = "games.json";
 
-        // Load all games
         public List<Game> GetAllGames()
         {
             if (!File.Exists(filePath))
@@ -20,14 +19,12 @@ namespace DigitalGameLibrary.Repositories
             return JsonSerializer.Deserialize<List<Game>>(json) ?? new List<Game>();
         }
 
-        // Save the full game list
         public void SaveGames(List<Game> games)
         {
             string json = JsonSerializer.Serialize(games, new JsonSerializerOptions { WriteIndented = true });
             File.WriteAllText(filePath, json);
         }
 
-        // Add a new game
         public void AddGame(Game game)
         {
             var games = GetAllGames();
@@ -35,7 +32,6 @@ namespace DigitalGameLibrary.Repositories
             SaveGames(games);
         }
 
-        // Update an existing game
         public void UpdateGame(Game updatedGame)
         {
             var games = GetAllGames();
@@ -47,7 +43,6 @@ namespace DigitalGameLibrary.Repositories
             }
         }
 
-        // Remove a game
         public void RemoveGame(Game gameToRemove)
         {
             var games = GetAllGames();

@@ -14,9 +14,9 @@ namespace DigitalGameLibrary.Forms
         private BindingList<Game> gamesBindingList;
         private BindingSource bindingSource = new BindingSource();
 
-        private Game selectedGame; // currently selected game
-        private HashSet<Game> gamesToDelete = new HashSet<Game>(); // track games marked for deletion
-        private Dictionary<string, bool> sortDirections = new Dictionary<string, bool>(); // track sort direction per column
+        private Game selectedGame; 
+        private HashSet<Game> gamesToDelete = new HashSet<Game>(); 
+        private Dictionary<string, bool> sortDirections = new Dictionary<string, bool>(); 
 
         public ManageControl()
         {
@@ -26,33 +26,31 @@ namespace DigitalGameLibrary.Forms
 
         private void ManageControl_Load(object sender, EventArgs e)
         {
-            // Configure DataGridView
+
             dgvGames.SelectionMode = DataGridViewSelectionMode.FullRowSelect;
             dgvGames.ReadOnly = true;
             dgvGames.AllowUserToAddRows = false;
             dgvGames.AllowUserToDeleteRows = false;
             dgvGames.AutoGenerateColumns = true;
 
-            // Load games from file
             var games = repo.GetAllGames() ?? new List<Game>();
             gamesBindingList = new BindingList<Game>(games);
             bindingSource.DataSource = gamesBindingList;
             dgvGames.DataSource = bindingSource;
 
-            // Hide ReleaseDate column if exists
             if (dgvGames.Columns.Contains("ReleaseDate"))
                 dgvGames.Columns["ReleaseDate"].Visible = false;
 
-            // Set sort mode for columns and initialize sort directions
+
             foreach (DataGridViewColumn col in dgvGames.Columns)
             {
                 col.SortMode = DataGridViewColumnSortMode.Programmatic;
-                sortDirections[col.DataPropertyName] = true; // default ascending
+                sortDirections[col.DataPropertyName] = true; 
             }
 
             dgvGames.ClearSelection();
 
-            // Wire buttons
+
             btnEdit.Click += BtnEdit_Click;
             btnDelete.Click += BtnDelete_Click;
             btnRefresh.Click += BtnRefresh_Click;
@@ -79,7 +77,7 @@ namespace DigitalGameLibrary.Forms
                 txtGenre.Text = selectedGame.Genre;
                 txtPlatform.Text = selectedGame.Platform;
 
-                // Highlight deleted games visually
+ 
                 dgvGames.Rows[e.RowIndex].DefaultCellStyle.BackColor =
                     gamesToDelete.Contains(selectedGame) ? System.Drawing.Color.LightCoral : System.Drawing.Color.White;
             }
@@ -105,7 +103,6 @@ namespace DigitalGameLibrary.Forms
             selectedGame.Genre = txtGenre.Text;
             selectedGame.Platform = txtPlatform.Text;
 
-            // Save changes to file
             repo.UpdateGame(selectedGame);
             bindingSource.ResetBindings(false);
 
@@ -124,7 +121,6 @@ namespace DigitalGameLibrary.Forms
             {
                 gamesToDelete.Add(selectedGame);
 
-                // Highlight row in red
                 var rowIndex = dgvGames.Rows.Cast<DataGridViewRow>()
                     .First(r => r.DataBoundItem == selectedGame).Index;
                 dgvGames.Rows[rowIndex].DefaultCellStyle.BackColor = System.Drawing.Color.LightCoral;
@@ -152,11 +148,10 @@ namespace DigitalGameLibrary.Forms
         {
             if (game == null) return;
             gamesBindingList.Add(game);
-            repo.AddGame(game); // save to file
+            repo.AddGame(game);
             bindingSource.ResetBindings(false);
         }
 
-        // Generic sort method
         private void SortByColumn(string columnName)
         {
             if (!sortDirections.ContainsKey(columnName)) return;
@@ -171,7 +166,7 @@ namespace DigitalGameLibrary.Forms
             bindingSource.DataSource = gamesBindingList;
             dgvGames.DataSource = bindingSource;
 
-            sortDirections[columnName] = !ascending; // toggle for next click
+            sortDirections[columnName] = !ascending; 
         }
     }
 }
